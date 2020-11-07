@@ -102,7 +102,7 @@
             required
         ></v-textarea>
        
-          <v-combobox multiple
+          <v-combobox  multiple
                     outlined
                     color=#3058A4
                     v-model="taglist" 
