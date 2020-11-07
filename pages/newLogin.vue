@@ -87,7 +87,7 @@ export default class NewLogin extends Vue{
                 userStore.setAttendingProtests(doc.data().attendingProtests);
                 userStore.setAttendingProtests(doc.data().organizedProtests);
 
-                //this.$router.push('/homepage')
+                this.$router.push('/homepage')
             }
             else{
                 alert("Error: Login unsuccessful")
