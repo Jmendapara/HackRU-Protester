@@ -59,7 +59,29 @@
       <v-btn icon>
         <v-icon color="red">mdi-bell</v-icon>
       </v-btn>
+    <v-menu
+        left
+        bottom
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            icon
+            v-bind="attrs"
+            v-on="on"
+          >
+            <v-icon>mdi-dots-vertical</v-icon>
+          </v-btn>
+        </template>
 
+        <v-list>
+          <v-list-item
+            @click="logout"
+            to="/"
+          >
+            <v-list-item-title>Logout</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
       </div>
 
     </v-app-bar>
@@ -108,6 +130,13 @@ export default class Default extends Vue{
 
       get getUserName(){
         return userStore.username;
+      }
+      logout(){
+        userStore.setUserName('');
+        userStore.setPassword('');
+        userStore.setEmail('');
+        userStore.setAttendingProtests([]);
+        userStore.setAttendingProtests([]);
       }
 
 
