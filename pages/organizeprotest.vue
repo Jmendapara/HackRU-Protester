@@ -128,7 +128,7 @@
       </v-card>
   </container>
 </template>
-<style>
+<style scoped>
 label {
     display: block;
     font: 1rem 'Fira Sans', sans-serif;
@@ -168,7 +168,7 @@ form{
     data() {
       return {
         fromDateMenu: null,
-        fromDateVal: null,
+        fromDateVal: "",
         writeSuccessful: true,
 
         minDate: new Date().toISOString().slice(0,10),

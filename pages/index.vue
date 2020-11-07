@@ -34,7 +34,7 @@ export default class MainPage extends Vue{
 
 }
 </script>
-<style>
+<style scoped>
   .container {
     display: flex;
     flex-grow: 1;
