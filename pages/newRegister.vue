@@ -127,7 +127,9 @@ export default class NewRegister extends Vue{
           const document = {
             username: this.user,
             password: this.password,
-            email: this.email
+            email: this.email,
+            organizedProtests: [],
+            attendingProtests: []
           }
           try {
             await ref.set(document)
