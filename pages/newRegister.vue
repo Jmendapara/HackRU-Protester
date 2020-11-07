@@ -37,13 +37,14 @@
             required
             :rules="[rules.required, rules.min]"
         ></v-text-field>
+        <p class = "uname">* Username will be displayed publicly</p>
         <v-btn
-          tile
           color='primary'
           elevation="1"
           rounded
+          large
           @click="writeToFirestore"
-        >signup</v-btn>
+        >sign up</v-btn>
       </v-form>
       <p></p>
       <p>Already have an account? <a href="/newLogin" style="text-decoration: none;" target="_top">Login</a></p>
@@ -158,6 +159,15 @@ export default class NewRegister extends Vue{
     text-align: center;
     flex-grow: 1;
     height: 100%;
+  }
+  .uname{
+    font-size:12px;
+    text-align:left;
+    position:relative;
+    bottom:20px;  
+    }
+  .pa-8{
+    width:30%;
   }
 
 </style>

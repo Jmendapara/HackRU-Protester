@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+    <v-container>
   <v-card class="overflow-hidden mainScreen">
 
     RANDOM CONTENT GOES HERE
@@ -18,7 +18,7 @@
         single-line
         filled
         rounded
-        dense 
+        dense
     ></v-text-field>
       <v-spacer></v-spacer>
     <v-btn
@@ -44,31 +44,10 @@
       <v-btn icon>
         <v-icon>mdi-dots-vertical</v-icon>
       </v-btn>
-    </v-app-bar> -->
+      </v-app-bar> -->
    
   </v-card>
 
   </v-container>
-
-
+    
 </template>
-
-<style scoped>
-
-.mainScreen{
-  display: flex;
-  height: 100%;
-  flex-grow: 1;
-  align-items: center;
-  justify-content: center;
-
-}
-
-.container{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-
-</style>

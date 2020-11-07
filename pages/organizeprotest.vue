@@ -1,7 +1,11 @@
 <template>
   <container>
+  <v-card class="mx-auto my-12"
+  elevation ="0"
+  max-width="800">
+  <v-flex text-xs-center>
     <h2>Create a Protest</h2>
-  <p></p>
+    <p></p>
       <v-form
         ref="form"
         v-model="valid"
@@ -20,7 +24,7 @@
             prepend-inner-icon="mdi-map-marker"
             required
         ></v-text-field>
-
+   
          <v-menu
             
             v-model="fromDateMenu"
@@ -50,7 +54,6 @@
               :max="maxDate"
             ></v-date-picker>
         </v-menu>
-
 
       <v-menu
         ref="menu"
@@ -82,6 +85,16 @@
         ></v-time-picker>
       </v-menu>
 
+
+      <v-text-field 
+            v-model="imageurl"
+            label="Image Url"
+            outlined
+            required
+        ></v-text-field>
+
+        <img :src="imageurl" @error="onImgLoad" width=30% height=20%> 
+    
          <v-textarea
             v-model="description"
             label="Description"
@@ -91,6 +104,7 @@
        
           <v-combobox multiple
                     outlined
+                    color=#3058A4
                     v-model="taglist" 
                     label="Tags" 
                     append-icon
@@ -101,14 +115,17 @@
                     @keyup.tab="updateTags"
                     @paste="updateTags">
           </v-combobox>
-
-        <v-btn
-          color=#3058A4
+<div style="text-align:center;"  >
+        <v-btn class="btn"
+          color="primary"
           elevation="1"
           rounded
+          large
           @click="createProtest"
-        >Create</v-btn>
+        >Create</v-btn></div>
       </v-form>
+      </v-flex>
+      </v-card>
   </container>
 </template>
 <style>
@@ -116,13 +133,34 @@ label {
     display: block;
     font: 1rem 'Fira Sans', sans-serif;
 }
-
+btn{
+  height:50px;
+  width:500px;
+}
 input,
 label {
     margin: .4rem 0;
     color: white;
 }
+h2{
+    letter-spacing: 0.03em;
+    font-family: Spartan, Sans-Serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 40px;
+    line-height: 45px;
+}
+form{
+  top: 300px;
+}
+.btn{
+  width:17%;
+}
+
+
 </style>
+
+
 <script>
   import {fireDb} from '~/plugins/firebase.js'
 
@@ -138,6 +176,7 @@ label {
         time: null,
         menu2: false,
         modal2: false,
+        imageurl: '',
         title:'',
         location:'',
         description:'',
@@ -154,6 +193,11 @@ label {
     },
   
   methods:{
+    onImgLoad () {
+      if(this.imageurl!= ''){
+        alert("Image not found")
+      }
+    },
       async createProtest(){
       if(this.title === '' || this.title === null || this.fromDateVal === '' || this.fromDateVal === null 
       || this.time === '' || this.time === null || this.location === '' || this.location === null ){
@@ -165,6 +209,7 @@ label {
               title:this.title,
               date: this.fromDateVal,
               time: this.time,
+              imgURL: this.imageurl,
               location:this.location,
               description:this.description,
               tags: this.taglist

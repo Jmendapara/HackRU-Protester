@@ -13,20 +13,19 @@
 
     <v-img
       height="250"
-      src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+      src="https://specials-images.forbesimg.com/imageserve/5f6ca0440a763840d039a28c/960x0.jpg?fit=scale"
     ></v-img>
 
     <v-card-title v-if="protest.title">{{protest.title}}</v-card-title>
 
-    <v-card-text>
+    <v-card-text align="left">
 
       <div class="my-4 subtitle-1">
-       {{protest.attendees}}
+       {{protest.title}}
       </div>
 
       <div>{{protest.location}}</div>
-
-        <div>{{protest.title}}</div>
+      <div>{{protest.title}}</div>
     </v-card-text>
 
   </v-card>

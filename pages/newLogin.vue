@@ -28,7 +28,8 @@
         ></v-text-field>
 
         <v-btn class="mb-3" color="primary"
-          tile
+          rounded
+          large
           @click="login"
         >Login</v-btn>
       </v-form>
@@ -127,5 +128,8 @@ export default class NewLogin extends Vue{
     text-align: center;
     flex-grow: 1;
     height: 100%;
+  }
+  .pa-8{
+    width:30%;
   }
 </style>

@@ -11,9 +11,9 @@
         <div class="buttons">
 
           <h1 class="mb-n2 mx-10 headerSize">Protester</h1>
-          <p class="mx-10 mb-15">Be the change you want to see in the world.</p>
-          <v-btn color="primary" flat tile class="my-3 mx-10" to="/newLogin">login</v-btn>
-          <v-btn flat tile class="my-3 mx-10"  to="/newRegister">sign up</v-btn>
+          <p class="mx-10 mb-15 my-5">Be the change you want to see in the world.</p>
+          <v-btn color="primary" flat rounded class="my-3 mx-10" to="/newLogin">login</v-btn>
+          <v-btn flat rounded class="my-3 mx-10"  to="/newRegister">sign up</v-btn>
         </div>
       </v-card>
   </v-container>
@@ -73,6 +73,13 @@ export default class MainPage extends Vue{
   .headerSize{
     font-size: 3rem;
   }
+  h1{
+    letter-spacing: 0.03em;
+    font-style: normal;
+    font-size: 40px;
+    line-height: 45px;
+  }
+
 
 
 </style>

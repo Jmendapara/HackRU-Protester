@@ -28,6 +28,7 @@
 
     <v-btn
       text
+      rounded
       color="primary"
       to="/homepage"
     > Home Page
@@ -35,12 +36,14 @@
 
       <v-btn
       text
+      rounded
       color="primary"
       to="/popular"
     > Popular
     </v-btn>
         <v-btn
       text
+      rounded
       color="primary"
       to="/attending"
     >
@@ -48,6 +51,7 @@
     </v-btn>
     <v-btn
       text
+      rounded
       color="primary"
       to="/organized"
     > Organized

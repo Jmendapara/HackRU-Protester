@@ -2,7 +2,9 @@
 
 <container>
 <div id="array">
+    <v-row no-gutters>
     <GridItem v-for="protest in protests" :key="protest.title" :protest="protest"></GridItem>
+    </v-row>
 </div>
 </container>
 

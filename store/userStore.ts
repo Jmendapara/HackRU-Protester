@@ -8,7 +8,6 @@ class UserStore extends VuexModule {
   lastName = "Bar";
   username = '';
   password = '';
-  tempProtest = {};
 
   // getters
   get fullName() {
@@ -23,11 +22,6 @@ class UserStore extends VuexModule {
   @Mutation
   setPassword(password: any) {
     this.password = password;
-  }
-
-  @Mutation
-  setTempProtest(protest: any) {
-    this.tempProtest = protest;
   }
 
   
