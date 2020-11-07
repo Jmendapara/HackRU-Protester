@@ -37,7 +37,7 @@
             required
             :rules="[rules.required, rules.min]"
         ></v-text-field>
-        <p class = "uname">* Username will be displayed publicly</p>
+        <p class = "uname mt-4">* Username will be displayed publicly</p>
         <v-btn
           color='primary'
           elevation="1"
@@ -45,10 +45,23 @@
           large
           @click="writeToFirestore"
         >sign up</v-btn>
+
       </v-form>
       <p></p>
       <p>Already have an account? <a href="/newLogin" style="text-decoration: none;" target="_top">Login</a></p>
     </v-card>
+
+    <v-snackbar 
+        absolute
+        top
+        color="success"
+        right
+        v-model="snackbar"
+        rounded
+      >
+        {{ successTest }}
+      </v-snackbar>
+
   </v-container>
 </template>
 
@@ -74,6 +87,9 @@ export default class NewRegister extends Vue{
         writeSuccessful=false;
         readSuccessful= false;
         text= "";
+
+        snackbar= false;
+        successTest= 'Accounted Created Successfully! Logging you in . . .';
 
       // get nameErrors () {
       //   const errors = []
@@ -119,10 +135,12 @@ export default class NewRegister extends Vue{
             // TODO: error handling
             console.error(e)
           }
-          this.writeSuccessful = true
+
           userStore.setUserName(this.user);
           userStore.setPassword(this.password);
-          this.$router.push('/homepage')
+          this.writeSuccessful = true
+          this.snackbar = true;
+          setTimeout( () => this.$router.push('/homepage'), 2000);
 
           } else {
             this.writeSuccessful = false;

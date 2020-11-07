@@ -80,10 +80,14 @@ export default class NewLogin extends Vue{
         if (doc.exists) {
             const pass = doc.data().password
             if(this.password == pass){
+                console.log(doc.data());
                 this.LoginSuccessful = true;
                 userStore.setUserName(this.user);
                 userStore.setPassword(this.password);
-                this.$router.push('/homepage')
+                userStore.setAttendingProtests(doc.data().attendingProtests);
+                userStore.setAttendingProtests(doc.data().organizedProtests);
+
+                //this.$router.push('/homepage')
             }
             else{
                 alert("Error: Login unsuccessful")

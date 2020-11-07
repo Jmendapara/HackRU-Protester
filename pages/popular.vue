@@ -50,6 +50,10 @@ export default class Popular extends Vue{
         attendees:25
     }
 
+    mounted(){
+        console.log(userStore.userUsername);
+    }
+
 
     dialog=false;
 
