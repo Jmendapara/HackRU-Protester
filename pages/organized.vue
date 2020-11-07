@@ -9,7 +9,7 @@
     </div>
    
 </template>
-<style>
+<style scoped>
 .create{
     position: absolute;
     top:70px;
