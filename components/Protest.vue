@@ -12,7 +12,7 @@
   
       <v-img
         height="250"
-        :src="protestInfo.url"
+        :src="protestInfo.imgURL"
       ></v-img>
   
       <v-card-title class="card-title">{{protestInfo.title}}</v-card-title>
