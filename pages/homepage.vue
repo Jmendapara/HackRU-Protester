@@ -14,7 +14,6 @@
         filled
         rounded
         dense 
-        :clear-button="true"
         @keyup.enter="searchStatus"
         @paste="searchStatus"
     ></v-text-field>
@@ -30,7 +29,7 @@
           sm="3"
           md="3"
           v-for="protest in topProtests"
-          :key="protest.title"
+          :key="protest.protestID"
         >
           <GridItem :protest="protest"  @card-clicked="handleCardClick($event)"></GridItem>
         </v-col>
@@ -126,6 +125,7 @@ export default class Homepage extends Vue {
 
 
   get topProtests() {
+    console.log("in topProtests");
     if(this.searching){
         if(this.search != '' && this.search != null){
       this.search = this.search.trim().toLowerCase();
@@ -166,6 +166,7 @@ export default class Homepage extends Vue {
   clear(){
     this.searching = false;
     this.search= '';
+    console.log("in clear")
   }
 
 }
