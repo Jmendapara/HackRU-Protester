@@ -1,18 +1,17 @@
 // user-module.ts
+import { Getter } from "vuex-class";
 import { VuexModule, Module, Mutation, Action } from "vuex-class-modules";
 
 @Module
 class UserStore extends VuexModule {
   // state
-  firstName = "Foo";
-  lastName = "Bar";
+
+  email = '';
   username = '';
   password = '';
+  attendingProtests = [];
+  organizedProtests = [];
 
-  // getters
-  get fullName() {
-    return this.firstName + " " + this.lastName;
-  }
 
   @Mutation
   setUserName(username: any) {
@@ -24,6 +23,36 @@ class UserStore extends VuexModule {
     this.password = password;
   }
 
+  @Mutation
+  setEmail(email: any) {
+    this.email = email;
+  }
+
+  @Mutation
+  setAttendingProtests(attendingProtests: any) {
+    this.attendingProtests = attendingProtests;
+  }
+
+  @Mutation
+  setOrganizedProtests(organizedProtests: any) {
+    this.organizedProtests = organizedProtests;
+  }
+
+  get userUsername(){
+    return this.username;
+  }
+
+  get userPassword(){
+    return this.password;
+  }
+
+  get userAttendingProtests(){
+    return this.attendingProtests;
+  }
+  
+  get userOrganizedProtests(){
+    return this.organizedProtests;
+  }
   
 }
 
