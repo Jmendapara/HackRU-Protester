@@ -1,8 +1,6 @@
 <template>
     <v-container>
     <div>
-        CLICK HERE TO OPEN PROTEST
-
         <v-dialog
             v-model="dialog"
             width="80%"

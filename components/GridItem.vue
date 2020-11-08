@@ -1,7 +1,9 @@
 <template>
   <v-card
-    class="mx-auto my-12"
+    class="mx-auto my-3"
     max-width="374"
+    outlined
+    rounded
   >
     <template slot="progress">
       <v-progress-linear
@@ -13,7 +15,7 @@
 
     <v-img
       height="250"
-      src="https://specials-images.forbesimg.com/imageserve/5f6ca0440a763840d039a28c/960x0.jpg?fit=scale"
+      :src="protest.imgURL"
     ></v-img>
 
     <v-card-title v-if="protest.title">{{protest.title}}</v-card-title>
