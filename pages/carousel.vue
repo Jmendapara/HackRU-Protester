@@ -1,11 +1,12 @@
 <template>
 
 <container>
-<div id="array">
+<v-flex xs12>
     <v-row no-gutters>
-    <MultiCarousel v-for="protest in protests" :key="protest.title" :protest="protest"></MultiCarousel>
+    <MultiCarousel  
+                   />
     </v-row>
-</div>
+</v-flex>
 </container>
 
 </template>
@@ -14,7 +15,6 @@
 
 <script>
 
-import MultiCarousel from './../components/MultiCarousel.vue'
 import Component from 'vue-class-component'
 import Vue from 'vue'
 
@@ -23,7 +23,6 @@ import Vue from 'vue'
 @Component({})
 export default class Attending extends Vue {
 
-    protests= [{title: 'Ashley'},{title: 'Andy'},{title: 'Andrew'},{title: 'Chad'},{title: 'Hiep'},{title: 'Sarah'},{title: 'David'}];
 
 }
 </script>

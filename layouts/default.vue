@@ -10,17 +10,6 @@
 
       <v-toolbar-title v-text="title" />
 
-      <v-text-field
-        v-model="search"
-        label="Search"
-        hide-details
-        prepend-inner-icon="mdi-magnify" class="shrink mx-4"
-        single-line
-        filled
-        rounded
-        dense 
-        v-if="getUserName"
-    ></v-text-field>
 
       <v-spacer />
 

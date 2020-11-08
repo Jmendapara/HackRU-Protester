@@ -6,17 +6,9 @@
       elevate-on-scroll
       scroll-target="#scrolling-techniques-7"
     >
-    <v-text-field
-        v-model="search"
-        label="Search"
-        hide-details
-        prepend-inner-icon="mdi-magnify" class="shrink mx-4"
-        single-line
-        filled
-        rounded
-        dense 
-    ></v-text-field>
+
       <v-spacer></v-spacer>
+      
     <v-btn
       text
       color="primary"

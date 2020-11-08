@@ -1,16 +1,9 @@
 <template>
-    <v-container>
-  <v-card class="overflow-hidden mainScreen">
-
-    RANDOM CONTENT GOES HERE
-
-    <!-- <v-app-bar
-      absolute
-      color="light-gray"
-      elevate-on-scroll
-      scroll-target="#scrolling-techniques-7"
-    >
-    <v-text-field
+  <v-container>
+    <div class="create">
+      <h1>Search</h1>
+      
+         <v-text-field
         v-model="search"
         label="Search"
         hide-details
@@ -18,36 +11,58 @@
         single-line
         filled
         rounded
-        dense
+        dense 
     ></v-text-field>
-      <v-spacer></v-spacer>
-    <v-btn
-      text
-      color="primary"
-    > Popular
-    </v-btn>
-        <v-btn
-      text
-      color="primary"
-    >
-      Attending
-    </v-btn>
-    <v-btn
-      text
-      color="primary"
-    > Organized
-    </v-btn>
-      <v-btn icon>
-        <v-icon color="red">mdi-bell</v-icon>
-      </v-btn>
+    </div>
 
-      <v-btn icon>
-        <v-icon>mdi-dots-vertical</v-icon>
-      </v-btn>
-      </v-app-bar> -->
-   
-  </v-card>
-
+    <div class="protestList">
+      <v-subheader>Popular Protests</v-subheader>
+      <v-row>
+        <v-col
+          cols="12"
+          sm="3"
+          md="3"
+          v-for="protest in myProtests"
+          :key="protest.title"
+        >
+          <GridItem :protest="protest"></GridItem>
+        </v-col>
+      </v-row>
+    </div>
   </v-container>
-    
 </template>
+
+<style scoped>
+/* .create{
+    position: absolute;
+    top:70px;
+    right:40px;
+}
+div h1{
+    position: absolute;
+    top:70px;
+    left: 60px;
+    letter-spacing: 0.08em;
+    font-family: Spartan, Sans-Serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 40px;
+    line-height: 45px;
+} */
+
+.create {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  letter-spacing: 0.06em;
+  font-family: Spartan, Sans-Serif;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 45px;
+}
+</style>
+
+<script>
+</script>
