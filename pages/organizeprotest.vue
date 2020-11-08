@@ -202,6 +202,15 @@ export default class OrganizeProtest extends Vue {
 
     let id="";
 
+    let tempURL = '';
+
+    if(this.imageurl == ''){
+      tempURL = 'https://i.pinimg.com/originals/48/40/a1/4840a17966325d0c974a4c915b35dfcb.jpg';
+    }
+    else{
+      tempURL = this.imageurl
+    }
+
     if (
       this.title === "" ||
       this.title === null ||
@@ -221,7 +230,7 @@ export default class OrganizeProtest extends Vue {
         title: this.title,
         date: this.fromDateVal,
         time: this.time,
-        imgURL: this.imageurl,
+        imgURL: tempURL,
         location: this.location,
         description: this.description,
         tags: this.taglist,

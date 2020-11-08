@@ -11,7 +11,7 @@
           sm="3"
           md="3"
           v-for="protest in myProtests"
-          :key="protest.title"
+          :key="protest.protestID"
         >
           <GridItem :protest="protest" @card-clicked="handleCardClick($event)"></GridItem>
         </v-col>
@@ -99,7 +99,6 @@ export default class Attending extends Vue {
         .get().then(
             (userInfo) => this.attendingProtests = userInfo.data().attendingProtests
         );
-
   }
 
   handleCardClick(event){

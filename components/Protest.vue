@@ -117,6 +117,11 @@
           {{protestInfo.attendees}}
         </div>
 
+        <div class="my-2 subtitle-1">
+          <v-icon color="primary" small>mdi-account</v-icon>
+          {{protestInfo.createdBy}}
+        </div>
+
         <v-card-title class="pl-0 pb-0">Related Tags</v-card-title>
           <v-chip-group v-model="selection" column>
             <v-chip v-for="tag in protestInfo.tags" :key="tag">{{tag}}</v-chip>
@@ -130,7 +135,7 @@
       <div class="button-group" v-if="!editMode">
         <v-btn v-if="!attending" :disabled="userName == protestInfo.createdBy" v-on:click="clickAttend" class="mr-2" rounded color="primary">Attend</v-btn>
 
-        <v-btn v-if="attending" v-on:click="clickAttend" class="mr-2" rounded color="success">Attending</v-btn>
+        <v-btn v-if="attending" :disabled="userName == protestInfo.createdBy" v-on:click="clickAttend" class="mr-2" rounded color="success">Attending</v-btn>
 
         <v-btn v-if="userName == protestInfo.createdBy" rounded color="secondary" v-on:click="edit" text>Edit</v-btn>
       </div>
