@@ -26,10 +26,20 @@
           v-for="protest in topProtests"
           :key="protest.title"
         >
-          <GridItem :protest="protest"></GridItem>
+          <GridItem :protest="protest"  @card-clicked="handleCardClick($event)"></GridItem>
         </v-col>
       </v-row>
     </div>
+
+    <v-dialog v-model="dialog" width="80%">
+      <template>
+        
+      </template>
+
+      <Protest :protestInfo="selectedProtest"></Protest>
+    </v-dialog>
+
+
   </v-container>
 </template>
 
@@ -111,9 +121,9 @@ export default class Homepage extends Vue {
     const protestB = b.attendees;
 
     let comparison = 0;
-    if (protestA > protestB) {
+    if (protestA < protestB) {
       comparison = 1;
-    } else if (protestA < protestB) {
+    } else if (protestA > protestB) {
       comparison = -1;
     }
     return comparison;
