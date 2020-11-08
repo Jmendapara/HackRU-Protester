@@ -225,13 +225,19 @@ export default class OrganizeProtest extends Vue {
         location: this.location,
         description: this.description,
         tags: this.taglist,
-        attendees: 1
+        attendees: 1,
+        protestID:''
       }).then(docRef => {
        id = docRef.id;
       })
 
-    
-     const res2 = await fireDb.collection("users")
+    const res3 = fireDb.collection("protests")
+        .doc(id)
+        .update({
+          protestID: id,
+        });
+  
+    const res2 = await fireDb.collection("users")
         .doc(userStore.userUsername)
         .update({
           organizedProtests: firebase.firestore.FieldValue.arrayUnion(id),
