@@ -16,13 +16,14 @@
     </div>
 
     <div class="protestList">
-      <v-subheader>Popular Protests</v-subheader>
+      <v-spacer></v-spacer>
+      <h2>Popular Protests</h2>
       <v-row>
         <v-col
           cols="12"
           sm="3"
           md="3"
-          v-for="protest in myProtests"
+          v-for="protest in topProtests"
           :key="protest.title"
         >
           <GridItem :protest="protest"></GridItem>
@@ -38,17 +39,7 @@
     top:70px;
     right:40px;
 }
-div h1{
-    position: absolute;
-    top:70px;
-    left: 60px;
-    letter-spacing: 0.08em;
-    font-family: Spartan, Sans-Serif;
-    font-style: normal;
-    font-weight: 300;
-    font-size: 40px;
-    line-height: 45px;
-} */
+ */
 
 .create {
   display: flex;
@@ -62,7 +53,87 @@ div h1{
   font-weight: 300;
   line-height: 45px;
 }
+
+div h2{
+    position: relative;
+    letter-spacing: 0.08em;
+    font-family: Spartan, Sans-Serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 25px;
+    line-height: 45px;
+}
 </style>
 
 <script>
+import { fireDb } from "~/plugins/firebase.js";
+import Vue from "vue";
+import Component from "nuxt-class-component";
+import { userStore } from "~/store/userStore";
+import * as firebase from "firebase/app";
+import GridItem from "./../components/GridItem.vue";
+
+@Component({})
+export default class Homepage extends Vue {
+
+  protests = [];
+  dialog=false;
+  selectedProtest={};
+
+  async mounted() {
+    //console.log(userStore.userUsername);
+    //ar protests = userStore.userOrganizedProtests;
+    //console.log(userStore.userOrganizedProtests);
+
+    const protests = await fireDb.collection("protests");
+    protests.get().then((querySnapshot) => {
+      console.log(querySnapshot.docs);
+      let tempProtests = [];
+      querySnapshot.docs.forEach((doc) => {
+        tempProtests.push(doc.data());
+      });
+      this.protests = tempProtests;
+    });
+  }
+
+  handleCardClick(event){
+    
+    this.selectedProtest = this.topProtests.find(protest => protest.protestID == event);
+    this.dialog = true;
+
+  }
+
+
+  get topProtests() {
+    console.log();
+    return this.protests.sort((a, b) =>{
+    const protestA = a.attendees;
+    const protestB = b.attendees;
+
+    let comparison = 0;
+    if (protestA > protestB) {
+      comparison = 1;
+    } else if (protestA < protestB) {
+      comparison = -1;
+    }
+    return comparison;
+  })
+  .slice(0,12);
+  }
+
+    /*compare(a, b) {
+    const protestA = a.attendees;
+    const protestB = b.attendees;
+
+    let comparison = 0;
+    if (protestA > protestB) {
+      comparison = 1;
+    } else if (protestA < protestB) {
+      comparison = -1;
+    }
+    return comparison;
+  }*/
+}
+
+
 </script>
