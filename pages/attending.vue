@@ -4,7 +4,7 @@
       <h1>Attending Protests</h1>
     </div>
 
-    <div class="organizedProtestList">
+    <div class="organizedProtestList" :key="key">
       <v-row>
         <v-col
           cols="12"
@@ -18,12 +18,12 @@
       </v-row>
     </div>
 
-    <v-dialog v-model="dialog" width="80%">
+    <v-dialog v-model="dialog" width="60%">
       <template>
         
       </template>
 
-      <Protest :protestInfo="selectedProtest"></Protest>
+      <Protest :protestInfo="selectedProtest" @update="updatePage()"></Protest>
     </v-dialog>
   </v-container>
 </template>
@@ -78,6 +78,7 @@ export default class Attending extends Vue {
   dialog=false;
   selectedProtest={};
   attendingProtests = []; 
+  key = 0;
 
   async mounted() {
     //console.log(userStore.userUsername);
@@ -108,6 +109,27 @@ export default class Attending extends Vue {
 
   }
 
+  async updatePage(){
+
+    const protests = await fireDb.collection("protests");
+    protests.get().then((querySnapshot) => {
+      let tempProtests = [];
+      querySnapshot.docs.forEach((doc) => {
+        tempProtests.push(doc.data());
+      });
+      this.protests = tempProtests;
+    });
+
+    const attendingProtests = await fireDb.collection("users")
+        .doc(userStore.userUsername)
+        .get().then(
+            (userInfo) => this.attendingProtests = userInfo.data().attendingProtests
+        );
+
+    this.dialog = false;
+    this.key++;
+
+  }
 
   get myProtests() {
 

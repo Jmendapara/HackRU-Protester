@@ -2,17 +2,18 @@
   <v-container>
     <div class="create">
       <h1>Search</h1>
-      
-         <v-text-field
+
+      <v-text-field
         v-model="search"
         label="Search"
         hide-details
-        prepend-inner-icon="mdi-magnify" class="shrink mx-4"
+        prepend-inner-icon="mdi-magnify"
+        class="shrink mx-4"
         single-line
         filled
         rounded
-        dense 
-    ></v-text-field>
+        dense
+      ></v-text-field>
     </div>
 
     <div class="protestList">
@@ -26,20 +27,21 @@
           v-for="protest in topProtests"
           :key="protest.title"
         >
-          <GridItem :protest="protest"  @card-clicked="handleCardClick($event)"></GridItem>
+          <GridItem
+            :protest="protest"
+            @card-clicked="handleCardClick($event)"
+            @attending="startAttending($event)"
+            @not-attending="unAttend($event)"
+          ></GridItem>
         </v-col>
       </v-row>
     </div>
 
-    <v-dialog v-model="dialog" width="80%">
-      <template>
-        
-      </template>
+    <v-dialog v-model="dialog" width="60%">
+      <template> </template>
 
       <Protest :protestInfo="selectedProtest"></Protest>
     </v-dialog>
-
-
   </v-container>
 </template>
 
@@ -64,14 +66,14 @@
   line-height: 45px;
 }
 
-div h2{
-    position: relative;
-    letter-spacing: 0.08em;
-    font-family: Spartan, Sans-Serif;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 25px;
-    line-height: 45px;
+div h2 {
+  position: relative;
+  letter-spacing: 0.08em;
+  font-family: Spartan, Sans-Serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 25px;
+  line-height: 45px;
 }
 </style>
 
@@ -85,10 +87,38 @@ import GridItem from "./../components/GridItem.vue";
 
 @Component({})
 export default class Homepage extends Vue {
-
   protests = [];
-  dialog=false;
-  selectedProtest={};
+  dialog = false;
+  selectedProtest = {};
+
+
+  async startAttending(event) {
+
+    console.log(event);
+
+    const attendees = await fireDb.collection("protests").doc(event);
+    protests.get().then((querySnapshot) => {
+      console.log(querySnapshot.data());
+    });
+
+    // const res2 = await fireDb
+    //   .collection("users")
+    //   .doc(userStore.userUsername)
+    //   .update({
+    //     attendingProtests: firebase.firestore.FieldValue.arrayUnion(id),
+    //   });
+
+    // attendees++;
+
+    // const res3 = await fireDb
+    //   .collection("protests")
+    //   .doc(event)
+    //   .update({
+    //     attendees: attendees
+    //   });
+  }
+
+  async unAttend(event) {}
 
   async mounted() {
     //console.log(userStore.userUsername);
@@ -106,32 +136,32 @@ export default class Homepage extends Vue {
     });
   }
 
-  handleCardClick(event){
-    
-    this.selectedProtest = this.topProtests.find(protest => protest.protestID == event);
+  handleCardClick(event) {
+    this.selectedProtest = this.topProtests.find(
+      (protest) => protest.protestID == event
+    );
     this.dialog = true;
-
   }
-
 
   get topProtests() {
     console.log();
-    return this.protests.sort((a, b) =>{
-    const protestA = a.attendees;
-    const protestB = b.attendees;
+    return this.protests
+      .sort((a, b) => {
+        const protestA = a.attendees;
+        const protestB = b.attendees;
 
-    let comparison = 0;
-    if (protestA < protestB) {
-      comparison = 1;
-    } else if (protestA > protestB) {
-      comparison = -1;
-    }
-    return comparison;
-  })
-  .slice(0,12);
+        let comparison = 0;
+        if (protestA < protestB) {
+          comparison = 1;
+        } else if (protestA > protestB) {
+          comparison = -1;
+        }
+        return comparison;
+      })
+      .slice(0, 12);
   }
 
-    /*compare(a, b) {
+  /*compare(a, b) {
     const protestA = a.attendees;
     const protestB = b.attendees;
 
@@ -144,6 +174,4 @@ export default class Homepage extends Vue {
     return comparison;
   }*/
 }
-
-
 </script>

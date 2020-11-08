@@ -16,19 +16,19 @@
           sm="3"
           md="3"
           v-for="protest in myProtests"
-          :key="protest.title"
+          :key="protest.protestID"
         >
           <GridItem :protest="protest" @card-clicked="handleCardClick($event)"></GridItem>
         </v-col>
       </v-row>
     </div>
 
-    <v-dialog v-model="dialog" width="80%">
+    <v-dialog v-model="dialog" width="60%">
       <template>
         
       </template>
 
-      <Protest :protestInfo="selectedProtest"></Protest>
+      <Protest :protestInfo="selectedProtest"  @update="updatePage()"></Protest>
     </v-dialog>
   </v-container>
 </template>
@@ -79,6 +79,7 @@ export default class Organized extends Vue {
   protests = [];
   dialog=false;
   selectedProtest={};
+  key=0;
 
   async mounted() {
     //console.log(userStore.userUsername);
@@ -104,8 +105,27 @@ export default class Organized extends Vue {
 
   }
 
+  async updatePage(){
 
-  get myProtests() {
+    const protests = await fireDb.collection("protests");
+    protests.get().then((querySnapshot) => {
+
+      let tempProtests = [];
+
+      querySnapshot.docs.forEach((doc) => {
+        tempProtests.push(doc.data());
+      });
+      
+      this.protests = tempProtests;
+      this.dialog = false;    
+  
+    });
+
+      
+  }
+
+
+  get myProtests(){
     return this.protests.filter(
       (protest) => protest.createdBy == userStore.userUsername
     );
