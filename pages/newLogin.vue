@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-card class="pa-8">
+    <v-card class="pa-8" width="350px">
 
       <v-card-title class="mb-3"><h2>Login</h2></v-card-title>
       <v-form
@@ -133,7 +133,5 @@ export default class NewLogin extends Vue{
     flex-grow: 1;
     height: 100%;
   }
-  .pa-8{
-    width:30%;
-  }
+
 </style>

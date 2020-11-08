@@ -31,20 +31,21 @@
           v-for="protest in topProtests"
           :key="protest.protestID"
         >
-          <GridItem :protest="protest"  @card-clicked="handleCardClick($event)"></GridItem>
+          <GridItem
+            :protest="protest"
+            @card-clicked="handleCardClick($event)"
+            @attending="startAttending($event)"
+            @not-attending="unAttend($event)"
+          ></GridItem>
         </v-col>
       </v-row>
     </div>
 
-    <v-dialog v-model="dialog" width="80%">
-      <template>
-        
-      </template>
+    <v-dialog v-model="dialog" width="60%">
+      <template> </template>
 
       <Protest :protestInfo="selectedProtest"></Protest>
     </v-dialog>
-
-
   </v-container>
 </template>
 
@@ -69,14 +70,14 @@
   line-height: 45px;
 }
 
-div h2{
-    position: relative;
-    letter-spacing: 0.08em;
-    font-family: Spartan, Sans-Serif;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 25px;
-    line-height: 45px;
+div h2 {
+  position: relative;
+  letter-spacing: 0.08em;
+  font-family: Spartan, Sans-Serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 25px;
+  line-height: 45px;
 }
 </style>
 
@@ -90,7 +91,6 @@ import GridItem from "./../components/GridItem.vue";
 
 @Component({})
 export default class Homepage extends Vue {
-
   protests = [];
   dialog=false;
   selectedProtest={};
@@ -120,12 +120,35 @@ export default class Homepage extends Vue {
   handleCardClick(event){
     this.selectedProtest = this.topProtests.find(protest => protest.protestID == event);
     this.dialog = true;
-
   }
 
-
   get topProtests() {
+<<<<<<< HEAD
     console.log("in topProtests");
+=======
+<<<<<<< HEAD
+    console.log();
+    return this.protests
+      .sort((a, b) => {
+        const protestA = a.attendees;
+        const protestB = b.attendees;
+
+        let comparison = 0;
+        if (protestA < protestB) {
+          comparison = 1;
+        } else if (protestA > protestB) {
+          comparison = -1;
+        }
+        return comparison;
+      })
+      .slice(0, 12);
+  }
+
+  /*compare(a, b) {
+    const protestA = a.attendees;
+    const protestB = b.attendees;
+=======
+>>>>>>> 6f760b6bf152989e23695fca8c4af12e4ab4da1c
     if(this.searching){
         if(this.search != '' && this.search != null){
       this.search = this.search.trim().toLowerCase();
@@ -169,6 +192,7 @@ export default class Homepage extends Vue {
     this.search= '';
     console.log("in clear")
   }
+>>>>>>> 0c8a4d0aeba6b29a0430c0ecfb2dd9b1c1dec6d6
 
   async userAttending(){
        const protests = await fireDb.collection("protests");
@@ -191,6 +215,4 @@ export default class Homepage extends Vue {
     );
   }
 }
-
-
 </script>
