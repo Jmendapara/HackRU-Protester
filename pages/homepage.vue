@@ -143,7 +143,8 @@ export default class Homepage extends Vue {
      return this.protests.filter(
       (protest) => protest.title.includes(this.search)
     );
-    }else{return this.protests.sort((a, b) =>{
+    }else{
+      return this.protests.sort((a, b) =>{
     const protestA = a.attendees;
     const protestB = b.attendees;
 
@@ -169,6 +170,26 @@ export default class Homepage extends Vue {
     console.log("in clear")
   }
 
+  async userAttending(){
+       const protests = await fireDb.collection("protests");
+    protests.get().then((querySnapshot) => {
+      let tempProtests = [];
+      querySnapshot.docs.forEach((doc) => {
+        tempProtests.push(doc.data());
+      });
+      this.protests = tempProtests;
+    });
+
+    const attendingProtests = await fireDb.collection("users")
+        .doc(userStore.userUsername)
+        .get().then(
+            (userInfo) => this.attendingProtests = userInfo.data().attendingProtests
+        );
+
+      return this.protests.filter(
+      (protest) => protest.createdBy == userStore.userUsername
+    );
+  }
 }
 
 
