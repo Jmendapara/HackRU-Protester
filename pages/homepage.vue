@@ -8,10 +8,13 @@
         label="Search"
         hide-details
         prepend-inner-icon="mdi-magnify" class="shrink mx-4"
+        append-icon="mdi-close-circle" 
+        @click:append="clear"
         single-line
         filled
         rounded
         dense 
+        :clear-button="true"
         @keyup.enter="searchStatus"
         @paste="searchStatus"
     ></v-text-field>
@@ -19,8 +22,8 @@
 
     <div class="protestList">
       <v-spacer></v-spacer>
-       <h2   v-if= "searching">Searching</h2>
-      <h2  v-else>Popular Protests</h2>
+       <h2   v-if= "searching">{{"\""+search+"\""}}</h2>
+      <h2  v-else >Popular Protests</h2>
       <v-row>
         <v-col
           cols="12"
@@ -125,8 +128,10 @@ export default class Homepage extends Vue {
   get topProtests() {
     if(this.searching){
         if(this.search != '' && this.search != null){
-      this.search.trim().toLowerCase();
+      this.search = this.search.trim().toLowerCase();
       console.log(this.search);
+    } else{
+      this.clear();
     }
     console.log(this.protests);
     for(var i=0; i<this.protests.length; i++){
@@ -158,6 +163,10 @@ export default class Homepage extends Vue {
     console.log("searching:"+this.searching);
   }
 
+  clear(){
+    this.searching = false;
+    this.search= '';
+  }
 
 }
 
