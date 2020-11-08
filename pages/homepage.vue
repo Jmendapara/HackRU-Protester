@@ -3,7 +3,7 @@
     <div class="create">
       <h1>Search</h1>
       
-         <v-text-field
+        <v-text-field
         v-model="search"
         label="Search"
         hide-details
@@ -12,12 +12,15 @@
         filled
         rounded
         dense 
+        @keyup.enter="searchStatus"
+        @paste="searchStatus"
     ></v-text-field>
     </div>
 
     <div class="protestList">
       <v-spacer></v-spacer>
-      <h2>Popular Protests</h2>
+       <h2   v-if= "searching">Searching</h2>
+      <h2  v-else>Popular Protests</h2>
       <v-row>
         <v-col
           cols="12"
@@ -89,14 +92,20 @@ export default class Homepage extends Vue {
   protests = [];
   dialog=false;
   selectedProtest={};
+  searching = false;
+  search = '';
 
   async mounted() {
     //console.log(userStore.userUsername);
     //ar protests = userStore.userOrganizedProtests;
     //console.log(userStore.userOrganizedProtests);
+     this.loadAllProtests();
 
-    const protests = await fireDb.collection("protests");
-    protests.get().then((querySnapshot) => {
+  }
+
+  async loadAllProtests(){
+      const protests = await fireDb.collection("protests");
+      protests.get().then((querySnapshot) => {
       console.log(querySnapshot.docs);
       let tempProtests = [];
       querySnapshot.docs.forEach((doc) => {
@@ -107,7 +116,6 @@ export default class Homepage extends Vue {
   }
 
   handleCardClick(event){
-    
     this.selectedProtest = this.topProtests.find(protest => protest.protestID == event);
     this.dialog = true;
 
@@ -115,8 +123,22 @@ export default class Homepage extends Vue {
 
 
   get topProtests() {
-    console.log();
-    return this.protests.sort((a, b) =>{
+    if(this.searching){
+        if(this.search != '' && this.search != null){
+      this.search.trim().toLowerCase();
+      console.log(this.search);
+    }
+    console.log(this.protests);
+    for(var i=0; i<this.protests.length; i++){
+        console.log(this.protests[i].title);
+        if(this.protests[i].title.includes(this.search)){
+          console.log("INCLUDES!!!");
+        }
+    }
+     return this.protests.filter(
+      (protest) => protest.title.includes(this.search)
+    );
+    }else{return this.protests.sort((a, b) =>{
     const protestA = a.attendees;
     const protestB = b.attendees;
 
@@ -128,21 +150,15 @@ export default class Homepage extends Vue {
     }
     return comparison;
   })
-  .slice(0,12);
+  .slice(0,12);}
   }
 
-    /*compare(a, b) {
-    const protestA = a.attendees;
-    const protestB = b.attendees;
+  searchStatus(){
+      this.searching = true;
+    console.log("searching:"+this.searching);
+  }
 
-    let comparison = 0;
-    if (protestA > protestB) {
-      comparison = 1;
-    } else if (protestA < protestB) {
-      comparison = -1;
-    }
-    return comparison;
-  }*/
+
 }
 
 
