@@ -114,7 +114,15 @@
         <div class="mt-5">{{protestInfo.description}}</div>
       </div>
     </v-card-text>
-
+    <v-card-title class="mt-0 pt-0">Forum</v-card-title>
+    <v-card-text v-for="comment in protestInfo.comments" :key="comment">{{comment}}</v-card-text>
+    <v-card-title class="mt-0 pt-0">ForumRef4</v-card-title>
+    <v-card-text>
+       <li v-for="value in protestInfo.forum3" v-bind:key="value.id">{{value}}</li>
+      <ul v-for="value in protestInfo.forum3" v-bind:key="value.id">
+        <li v-for="(userBy, comment) in value.replies" v-bind:key="comment.id">{{userBy}}:{{ comment }}</li>
+      </ul>
+    </v-card-text>
     <v-card-title class="mt-0 pt-0">Related Tags</v-card-title>
 
     <v-card-text>
@@ -190,7 +198,7 @@ export default class Protest extends Vue {
         time: this.time,
       });
     }
-
+    
   }
 }
 </script>
