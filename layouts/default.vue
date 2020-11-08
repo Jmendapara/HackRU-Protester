@@ -27,13 +27,6 @@
       text
       rounded
       color="primary"
-      to="/popular"
-    > Popular
-    </v-btn>
-        <v-btn
-      text
-      rounded
-      color="primary"
       to="/attending"
     >
       Attending
@@ -45,9 +38,19 @@
       to="/organized"
     > Organized
     </v-btn>
-      <v-btn icon>
+      <!-- <v-btn icon>
         <v-icon color="red">mdi-bell</v-icon>
-      </v-btn>
+      </v-btn> -->
+
+    <v-btn
+      text
+      rounded
+      color="primary"
+      disabled
+      class="nameButton"
+    > {{getUserName}}
+    </v-btn>
+
     <v-menu
         left
         bottom
@@ -124,6 +127,14 @@ export default class Default extends Vue{
 .container{
   max-width: none !important;
   height: 100%;
+}
+
+.theme--light.v-btn.v-btn--disabled{
+  color: rgba(0, 0, 0, .8) !important
+}
+
+.nameButton{
+  text-transform: none !important;
 }
 
 </style>

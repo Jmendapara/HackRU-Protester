@@ -1,7 +1,7 @@
 <template>
   <v-container>
 
-    <v-card class="pa-8">
+    <v-card class="pa-8" width="350px">
 
       <v-card-title class="mb-3"><h2>Sign Up</h2></v-card-title>
 
@@ -186,8 +186,5 @@ export default class NewRegister extends Vue{
     position:relative;
     bottom:20px;  
     }
-  .pa-8{
-    width:30%;
-  }
-
+ 
 </style>
