@@ -24,10 +24,8 @@
     </div>
 
     <v-dialog v-model="dialog" width="80%">
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn color="primary" dark v-bind="attrs" v-on="on">
-          Open Dialog
-        </v-btn>
+      <template>
+        
       </template>
 
       <Protest :protestInfo="selectedProtest"></Protest>
@@ -101,6 +99,7 @@ export default class Organized extends Vue {
   handleCardClick(event){
     
     this.selectedProtest = this.myProtests.find(protest => protest.protestID == event);
+    console.log(event);
     this.dialog = true;
 
   }
