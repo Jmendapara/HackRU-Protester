@@ -30,7 +30,7 @@
           sm="3"
           md="3"
           v-for="protest in topProtests"
-          :key="protest.title"
+          :key="protest.protestID"
         >
           <GridItem
             :protest="protest"
