@@ -10,21 +10,17 @@
 
     <v-card-text>
       <div v-if="editMode">
-        <v-form
-        ref="form"
-        v-model="valid"
-        lazy-validation
-      >
-        <v-text-field
-          v-model="location"
-          label="Location"
-          :placeholder= "protestInfo.location"
-          outlined
-          color = "custom-color"
-          dense
-        ></v-text-field>
-                
-        <v-menu
+        <v-form class="form" ref="form" v-model="valid" lazy-validation>
+          <v-text-field
+            v-model="location"
+            label="Location"
+            :placeholder="protestInfo.location"
+            outlined
+            color="custom-color"
+            dense
+          ></v-text-field>
+
+          <v-menu
             v-model="fromDateMenu"
             :close-on-content-click="false"
             :nudge-right="40"
@@ -85,17 +81,13 @@
             ></v-time-picker>
           </v-menu>
 
+          <div class="my-2 subtitle-1">
+            <v-icon color="primary" small>mdi-account-group</v-icon>
+            {{protestInfo.attendees}}
+          </div>
 
-        <div class="my-2 subtitle-1">
-          <v-icon color="primary" small>mdi-account-group</v-icon>
-          {{protestInfo.attendees}}
-        </div>
-
-        <div class="mt-5">{{protestInfo.description}}</div>
-
-
-      </v-form>
-
+          <div class="mt-5">{{protestInfo.description}}</div>
+        </v-form>
       </div>
 
       <div v-else>
@@ -129,24 +121,38 @@
       <v-chip-group v-model="selection" column>
         <v-chip v-for="tag in protestInfo.tags" :key="tag">{{tag}}</v-chip>
       </v-chip-group>
+
+      <div class="button-group" v-if="!editMode">
+        <v-btn rounded color="primary">Attend</v-btn>
+
+        <v-btn rounded color="secondary" v-on:click="edit" text>Edit</v-btn>
+      </div>
+
+      <div class="button-group" v-else>
+        <v-btn rounded color="primary" v-on:click="updateProtest">Save</v-btn>
+
+        <v-btn rounded color="secondary" v-on:click="edit" text>Cancel</v-btn>
+      </div>
     </v-card-text>
-
-    <v-card-actions>
-      <v-btn color="primary" text>Attend</v-btn>
-
-      <v-btn color="secondary" v-on:click="edit" text>Edit</v-btn>
-    </v-card-actions>
   </v-card>
 </template>
 
 <script>
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
+import { fireDb } from "~/plugins/firebase.js";
+import * as firebase from 'firebase/app'
 
 @Component({})
 export default class Protest extends Vue {
-
+  fromDateMenu = null;
+  fromDateVal = "";
   editMode = false;
+  minDate = new Date().toISOString().slice(0, 10);
+  location = "";
+  date = new Date();
+  time = null;
+  menu2 = false;
 
   @Prop()
   protestInfo;
@@ -154,10 +160,50 @@ export default class Protest extends Vue {
   edit() {
     this.editMode = !this.editMode;
   }
+
+  get maxDate() {
+    var endDate = new Date(this.date.getFullYear() + 10, 11, 31);
+    return endDate.toISOString().slice(0, 10);
+  }
+
+  get fromDateDisp() {
+    return this.fromDateVal;
+  }
+
+  updateProtest() {
+
+
+    if (this.location != "") {
+      const res1 = this.protestInfo.update({
+        location: this.location,
+      });
+    }
+
+    if (this.fromDateVal != "") {
+      const res2 = this.protestInfo.protestID.update({
+        date: this.fromDateVal,
+      });
+    }
+
+    if (this.time != "") {
+      const res3 = this.protestInfo.protestID.update({
+        time: this.time,
+      });
+    }
+
+  }
 }
 </script>
 
 <style scoped>
+.button-group {
+  margin-top: 24px;
+}
+
+.form {
+  margin-top: 16px;
+}
+
 .card-title {
   font-size: 2rem !important;
 }
