@@ -18,10 +18,20 @@
           v-for="protest in myProtests"
           :key="protest.title"
         >
-          <GridItem :protest="protest"></GridItem>
+          <GridItem :protest="protest" @card-clicked="handleCardClick($event)"></GridItem>
         </v-col>
       </v-row>
     </div>
+
+    <v-dialog v-model="dialog" width="80%">
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn color="primary" dark v-bind="attrs" v-on="on">
+          Open Dialog
+        </v-btn>
+      </template>
+
+      <Protest :protestInfo="selectedProtest"></Protest>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -69,33 +79,37 @@ import GridItem from "./../components/GridItem.vue";
 export default class Organized extends Vue {
 
   protests = [];
+  dialog=false;
+  selectedProtest={};
 
   async mounted() {
     //console.log(userStore.userUsername);
     //ar protests = userStore.userOrganizedProtests;
     //console.log(userStore.userOrganizedProtests);
 
-
-
-    const protests = await fireDb.collection('protests')
+    const protests = await fireDb.collection("protests");
     protests.get().then((querySnapshot) => {
+      console.log(querySnapshot.docs);
+      let tempProtests = [];
+      querySnapshot.docs.forEach((doc) => {
+        tempProtests.push(doc.data());
+      });
+      this.protests = tempProtests;
+    });
+  }
 
-        console.log(querySnapshot.docs);
-        let tempProtests = [];
-        querySnapshot.docs.forEach(doc => {
-         tempProtests.push(doc.data());
-        });
-        this.protests = tempProtests;
-    })
+  handleCardClick(event){
+    
+    this.selectedProtest = this.myProtests.find(protest => protest.protestID == event);
+    this.dialog = true;
 
   }
 
-  get myProtests(){
 
-    return this.protests.filter(protest => protest.createdBy == userStore.userUsername);
-
+  get myProtests() {
+    return this.protests.filter(
+      (protest) => protest.createdBy == userStore.userUsername
+    );
   }
-
-
 }
 </script>
