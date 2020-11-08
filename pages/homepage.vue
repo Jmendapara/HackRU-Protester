@@ -2,20 +2,6 @@
   <v-container>
     <div class="create">
       <h1>Search</h1>
-<<<<<<< HEAD
-
-      <v-text-field
-        v-model="search"
-        label="Search"
-        hide-details
-        prepend-inner-icon="mdi-magnify"
-        class="shrink mx-4"
-        single-line
-        filled
-        rounded
-        dense
-      ></v-text-field>
-=======
       
         <v-text-field
         v-model="search"
@@ -32,7 +18,6 @@
         @keyup.enter="searchStatus"
         @paste="searchStatus"
     ></v-text-field>
->>>>>>> 0c8a4d0aeba6b29a0430c0ecfb2dd9b1c1dec6d6
     </div>
 
     <div class="protestList">
@@ -133,41 +118,12 @@ export default class Homepage extends Vue {
     });
   }
 
-<<<<<<< HEAD
-  handleCardClick(event) {
-    this.selectedProtest = this.topProtests.find(
-      (protest) => protest.protestID == event
-    );
-=======
   handleCardClick(event){
     this.selectedProtest = this.topProtests.find(protest => protest.protestID == event);
->>>>>>> 0c8a4d0aeba6b29a0430c0ecfb2dd9b1c1dec6d6
     this.dialog = true;
   }
 
   get topProtests() {
-<<<<<<< HEAD
-    console.log();
-    return this.protests
-      .sort((a, b) => {
-        const protestA = a.attendees;
-        const protestB = b.attendees;
-
-        let comparison = 0;
-        if (protestA < protestB) {
-          comparison = 1;
-        } else if (protestA > protestB) {
-          comparison = -1;
-        }
-        return comparison;
-      })
-      .slice(0, 12);
-  }
-
-  /*compare(a, b) {
-    const protestA = a.attendees;
-    const protestB = b.attendees;
-=======
     if(this.searching){
         if(this.search != '' && this.search != null){
       this.search = this.search.trim().toLowerCase();
@@ -209,7 +165,6 @@ export default class Homepage extends Vue {
     this.searching = false;
     this.search= '';
   }
->>>>>>> 0c8a4d0aeba6b29a0430c0ecfb2dd9b1c1dec6d6
 
 }
 </script>
